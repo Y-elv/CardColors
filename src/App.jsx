@@ -5,6 +5,7 @@ import Card from './components/Card.jsx'
 import img1 from './assets/img1.jpg'
 import img2 from './assets/img2.jpg'
 import img3 from './assets/image3.jpg'
+import { useEffect,useState } from 'react'
 
 function App() {
   function handleRedirect(){
@@ -14,28 +15,33 @@ function App() {
 function handleRedirect2(){
     window.location.href="https://www.twitter.com"
 }
+const [data,setData]=useState([])
+useEffect(()=>{
+  fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(response => response.json())
+  .then(dataResp => setData(dataResp))
+},[])
   return (
     <div>
-      <Card
-     Img={img1}
-     nbr="1"
-     link={handleRedirect}
-      
-      
-      />
-      <Card
-      Img={img2}
-      nbr="2"
-      link={handleRedirect2}
-       
-      
-      />
-      <Card
-       nbr="3"
-       Img={img3}
-       
-      
-      />
+      {
+        data.map((post,idx)=>{
+          return(
+            <div>
+            {idx<2 ?( <Card
+              key={idx}
+              Img={img1}
+              nbr={post.id}
+              link={handleRedirect}
+               
+               
+               />):""}
+               </div>
+           
+          )
+        })
+      }
+     
+   
     </div>
   )
 }

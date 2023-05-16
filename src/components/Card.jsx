@@ -1,16 +1,23 @@
 import Button from "./Button"
 import '../css/Card.css'
-import { useState } from "react"
+import { useState,useEffect } from "react"
 const Card=({Img,nbr,link})=>{
 
     const [color, setColor] = useState('white');
     function changeColor(){
-       if(color=='white'){    setColor('yellow');}
-        else{setColor('white')}
+       if(color=='white'){   
+         setColor('yellow');}
+        else{setColor('yellow')}// for here if we turn this white to yellow the useEffect will not console color is changed cz the color won't be changed but if we turn them into white of cz it will run the function console color is changed 
     
         console.log("hello");
     }
-  
+  useEffect(()=>{
+console.log("color is changed")
+  },[color]) 
+
+    useEffect(()=>{
+console.log("when is empty in array . is to track the function of console once on first load")
+  },[])
     
     return(
 <div className="container">
